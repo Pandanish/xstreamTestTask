@@ -26,7 +26,6 @@ public class ClientConfig {
     }
 
 
-
     @Bean
     public IntegrationFlow clientFlow(
             TcpNetClientConnectionFactory clientConnectionFactory,
@@ -36,7 +35,6 @@ public class ClientConfig {
                 .handle(clientService::receive)
                 .get();
     }
-
 
 
     @Bean

@@ -22,6 +22,10 @@ public class Docs implements Persistable<UUID> {
 
     public String getDocId() {
         return docId;
+    }
+
+    public void setDocId(String docId) {
+        this.docId = docId;
     }    @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
@@ -32,26 +36,14 @@ public class Docs implements Persistable<UUID> {
         return id;
     }
 
-    public void setDocId(String docId) {
-        this.docId = docId;
-    }    public void setId(@Nullable UUID id) {
-        this.id = id;
-    }
-
     public String getDocBody() {
         return docBody;
-    }    /**
-     * Must be {@link Transient} in order to ensure that no JPA provider complains because of a missing setter.
-     *
-     * @see Persistable#isNew()
-     */
-    @Transient // DATAJPA-622
-    public boolean isNew() {
-        return null == getId();
     }
 
     public void setDocBody(String docBody) {
         this.docBody = docBody;
+    }    public void setId(@Nullable UUID id) {
+        this.id = id;
     }
 
     public String getSender() {
@@ -60,6 +52,14 @@ public class Docs implements Persistable<UUID> {
 
     public void setSender(String sender) {
         this.sender = sender;
+    }    /**
+     * Must be {@link Transient} in order to ensure that no JPA provider complains because of a missing setter.
+     *
+     * @see Persistable#isNew()
+     */
+    @Transient // DATAJPA-622
+    public boolean isNew() {
+        return null == getId();
     }
 
     public String getRecipient() {
@@ -77,6 +77,7 @@ public class Docs implements Persistable<UUID> {
     public void setFile_name(String file_name) {
         this.file_name = file_name;
     }
+
 
 
 

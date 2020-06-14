@@ -3,7 +3,6 @@ package com.testxstream.server;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.testxstream.server.dao.DocumentRepository;
-import com.testxstream.server.model.tcp.documents.Docs;
 import com.testxstream.server.service.DocumentService;
 import com.thoughtworks.xstream.XStream;
 import org.apache.logging.log4j.LogManager;
@@ -48,8 +47,6 @@ public class ServerSocketService {
         }
 
     }
-
-
 
 
 }

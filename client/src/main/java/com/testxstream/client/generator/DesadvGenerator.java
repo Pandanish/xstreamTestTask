@@ -17,12 +17,13 @@ public class DesadvGenerator implements XmlBodyGenerator {
         return "desadv";
     }
 
-    private String getDesadvRandomContent(){
+    private String getDesadvRandomContent() {
 
-        Random random =new Random();
-        return String.format(getDesadvTemplate(),random.nextInt(5000), RandomStringUtils.randomAlphabetic(10) );
+        Random random = new Random();
+        return String.format(getDesadvTemplate(), random.nextInt(5000), RandomStringUtils.randomAlphabetic(10));
     }
-    private String getDesadvTemplate(){
+
+    private String getDesadvTemplate() {
         return "<Desadv>\n" +
                 "  <id>%s</id>\n" +
                 "  <content>%s</content>\n" +

@@ -3,9 +3,6 @@ package com.testxstream.server;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.testxstream.server.dto.DesadvDTO;
 import com.testxstream.server.dto.OrderDTO;
-import com.testxstream.server.model.tcp.documents.Docs;
-import com.testxstream.server.service.mapper.AbstractDocumentMapper;
-import com.testxstream.server.web.model.DocumentDTO;
 import com.thoughtworks.xstream.XStream;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,9 +12,6 @@ import org.springframework.integration.dsl.IntegrationFlows;
 import org.springframework.integration.ip.dsl.Tcp;
 import org.springframework.integration.ip.tcp.connection.TcpNetServerConnectionFactory;
 import org.springframework.integration.ip.tcp.serializer.ByteArrayLengthHeaderSerializer;
-
-import java.util.List;
-import java.util.function.Function;
 
 @Configuration
 @EnableIntegration
@@ -49,7 +43,7 @@ public class ServerConfig {
     }
 
     @Bean
-    public XStream xstream(){
+    public XStream xstream() {
         XStream xstream = new XStream();
         xstream.alias("Desadv", DesadvDTO.class);
         xstream.alias("Order", OrderDTO.class);

@@ -12,12 +12,12 @@ import org.mapstruct.Mapper;
 @DecoratedWith(DesadvDocumentMapperDecorator.class)
 public abstract class DesadvDocumentMapper implements AbstractDocumentMapper<Docs, DocumentDTO<DesadvDTO>> {
 
-    public String getMapperDocumentType() {
-        return DocumentType.DESADVDTO.name();
-    }
-
     @Override
     public boolean checkType(Docs docs) {
         return false;
+    }
+
+    public String getMapperDocumentType() {
+        return DocumentType.DESADVDTO.name();
     }
 }

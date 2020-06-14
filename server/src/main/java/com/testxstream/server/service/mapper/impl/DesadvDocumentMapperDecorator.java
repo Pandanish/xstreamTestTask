@@ -7,7 +7,7 @@ import com.testxstream.server.web.model.DocumentDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
-public  abstract class DesadvDocumentMapperDecorator extends DesadvDocumentMapper {
+public abstract class DesadvDocumentMapperDecorator extends DesadvDocumentMapper {
 
     @Autowired
     private DesadvDocumentMapper delegate;
@@ -25,12 +25,9 @@ public  abstract class DesadvDocumentMapperDecorator extends DesadvDocumentMappe
     }
 
     @Override
-    public boolean checkType(Docs e){
-      Class clazz =  documentService.documentType(e.getDocBody());
-      if (clazz.getSimpleName().equalsIgnoreCase(getMapperDocumentType())){
-          return true;
-      }
-      return false;
+    public boolean checkType(Docs e) {
+        Class clazz = documentService.documentType(e.getDocBody());
+        return clazz.getSimpleName().equalsIgnoreCase(getMapperDocumentType());
     }
 
 

@@ -29,9 +29,18 @@ public class ClientService {
     public GenericMessage<String> send() {
 
         Random random = new Random();
-        Integer  index = random.nextInt(xmlBodyGenerators.size());
+        Integer index = random.nextInt(xmlBodyGenerators.size());
         log.info("Sending Heartbeat");
         return new GenericMessage<String>(getStringMessage(xmlBodyGenerators.get(index)));
+    }
+
+    @SneakyThrows
+    private String getStringMessage(XmlBodyGenerator xmlBodyGenerator) {
+        Message messageSend = new Message();
+        messageSend.setFileName(RandomStringUtils.randomAlphabetic(10) + ".xml");
+        messageSend.setType(xmlBodyGenerator.getType());
+        messageSend.setBase64Body(Base64.encodeBase64String(xmlBodyGenerator.generateContent().getBytes(StandardCharsets.UTF_8)));
+        return objectMapper.writeValueAsString(messageSend);
     }
 
     public Object receive(byte[] payload, MessageHeaders messageHeaders) { // LATER: use transformer() to receive String here
@@ -44,17 +53,6 @@ public class ClientService {
         }
         return null;
     }
-
-
-    @SneakyThrows
-    private String getStringMessage( XmlBodyGenerator xmlBodyGenerator) {
-        Message messageSend = new Message();
-        messageSend.setFileName(RandomStringUtils.randomAlphabetic(10) + ".xml");
-        messageSend.setType(xmlBodyGenerator.getType());
-        messageSend.setBase64Body(Base64.encodeBase64String(xmlBodyGenerator.generateContent().getBytes(StandardCharsets.UTF_8)));
-        return objectMapper.writeValueAsString(messageSend);
-    }
-
 
 
 }

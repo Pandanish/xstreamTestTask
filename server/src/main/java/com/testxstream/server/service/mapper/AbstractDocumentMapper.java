@@ -7,10 +7,10 @@ import com.testxstream.server.web.model.DocumentDTO;
 public interface AbstractDocumentMapper<E extends Docs, ResponseDTO extends DocumentDTO<?>> {
 
 
-     boolean checkType(Docs e);
+    boolean checkType(Docs e);
 
 
-      String getMapperDocumentType();
+    String getMapperDocumentType();
 
-     ResponseDTO toDTO(E e);
+    ResponseDTO toDTO(E e);
 }

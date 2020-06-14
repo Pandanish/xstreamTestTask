@@ -17,12 +17,13 @@ public class OrderGenerator implements XmlBodyGenerator {
         return "order";
     }
 
-    private String getOrderRandomContent(){
+    private String getOrderRandomContent() {
 
-        Random random =new Random();
-        return String.format(getOrderTemplate(),random.nextInt(5000), RandomStringUtils.randomAlphabetic(10) );
+        Random random = new Random();
+        return String.format(getOrderTemplate(), random.nextInt(5000), RandomStringUtils.randomAlphabetic(10));
     }
-    private String getOrderTemplate(){
+
+    private String getOrderTemplate() {
         return "<Order>\n" +
                 "  <id>%s</id>\n" +
                 "  <message>%s</message>\n" +

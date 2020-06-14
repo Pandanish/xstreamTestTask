@@ -4,8 +4,6 @@ import com.testxstream.server.dao.DocumentRepository;
 import com.testxstream.server.dto.DesadvDTO;
 import com.testxstream.server.dto.OrderDTO;
 import com.testxstream.server.model.tcp.documents.Docs;
-import com.testxstream.server.service.mapper.MapperService;
-import com.testxstream.server.web.model.DocumentDTO;
 import com.thoughtworks.xstream.XStream;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
@@ -70,18 +68,6 @@ public class DocumentService {
         documentRepository.save(docs);
     }
 
-    public Class documentType(String xmlBodyDocument){
-        Object document = xStream.fromXML(xmlBodyDocument);
-
-        if (document instanceof DesadvDTO) {
-            return  DesadvDTO.class;
-        }
-        if (document instanceof OrderDTO) {
-            return OrderDTO.class;
-        }
-        return null;
-    }
-
     public String getDocumentID(String xmlBodyDocument) {
 
         Object document = xStream.fromXML(xmlBodyDocument);
@@ -95,6 +81,17 @@ public class DocumentService {
         return null;
     }
 
+    public Class documentType(String xmlBodyDocument) {
+        Object document = xStream.fromXML(xmlBodyDocument);
+
+        if (document instanceof DesadvDTO) {
+            return DesadvDTO.class;
+        }
+        if (document instanceof OrderDTO) {
+            return OrderDTO.class;
+        }
+        return null;
+    }
 
 
 }
