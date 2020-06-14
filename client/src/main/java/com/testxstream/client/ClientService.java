@@ -1,7 +1,7 @@
 package com.testxstream.client;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.testxstream.client.generator.XmlBodyGenerator;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
@@ -10,6 +10,8 @@ import org.springframework.messaging.MessageHeaders;
 import org.springframework.messaging.support.GenericMessage;
 import org.springframework.stereotype.Service;
 
+import java.nio.charset.StandardCharsets;
+import java.util.List;
 import java.util.Random;
 
 @Slf4j
@@ -17,16 +19,19 @@ import java.util.Random;
 public class ClientService {
 
     private final ObjectMapper objectMapper;
+    private final List<XmlBodyGenerator> xmlBodyGenerators;
 
-    public ClientService(ObjectMapper objectMapper) {
+    public ClientService(ObjectMapper objectMapper, List<XmlBodyGenerator> xmlBodyGenerators) {
         this.objectMapper = objectMapper;
+        this.xmlBodyGenerators = xmlBodyGenerators;
     }
 
     public GenericMessage<String> send() {
 
-
+        Random random = new Random();
+        Integer  index = random.nextInt(xmlBodyGenerators.size());
         log.info("Sending Heartbeat");
-        return new GenericMessage<String>(getStringMessage());
+        return new GenericMessage<String>(getStringMessage(xmlBodyGenerators.get(index)));
     }
 
     public Object receive(byte[] payload, MessageHeaders messageHeaders) { // LATER: use transformer() to receive String here
@@ -40,25 +45,16 @@ public class ClientService {
         return null;
     }
 
+
     @SneakyThrows
-    private String getStringMessage() {
+    private String getStringMessage( XmlBodyGenerator xmlBodyGenerator) {
         Message messageSend = new Message();
-        messageSend.setFileName("DesadvFile.txt");
-        messageSend.setType("desadv");
-        messageSend.setBase64Body(Base64.encodeBase64String(getDesadvRandomContent().getBytes()));
+        messageSend.setFileName(RandomStringUtils.randomAlphabetic(10) + ".xml");
+        messageSend.setType(xmlBodyGenerator.getType());
+        messageSend.setBase64Body(Base64.encodeBase64String(xmlBodyGenerator.generateContent().getBytes(StandardCharsets.UTF_8)));
         return objectMapper.writeValueAsString(messageSend);
     }
 
-    private String getDesadvRandomContent(){
 
-        Random random =new Random();
-        return String.format(getDesadvTemplate(),random.nextInt(5000), RandomStringUtils.randomAlphabetic(10) );
-    }
 
-    private String getDesadvTemplate(){
-        return "<Desadv>\n" +
-                "  <id>%s</id>\n" +
-                "  <content>%s</content>\n" +
-                "</Desadv>";
-    }
 }

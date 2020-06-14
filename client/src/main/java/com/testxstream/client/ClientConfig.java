@@ -8,10 +8,8 @@ import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.dsl.IntegrationFlows;
 import org.springframework.integration.dsl.Pollers;
 import org.springframework.integration.ip.dsl.Tcp;
-import org.springframework.integration.ip.tcp.connection.MessageConvertingTcpMessageMapper;
 import org.springframework.integration.ip.tcp.connection.TcpNetClientConnectionFactory;
 import org.springframework.integration.ip.tcp.serializer.ByteArrayLengthHeaderSerializer;
-import org.springframework.integration.support.converter.MapMessageConverter;
 
 import java.time.Duration;
 
@@ -39,10 +37,7 @@ public class ClientConfig {
                 .get();
     }
 
-    @Bean
-    public ClientService heartbeatClient() {
-        return new ClientService(objectMapper());
-    }
+
 
     @Bean
     public ObjectMapper objectMapper() {

@@ -41,7 +41,7 @@ public class ServerSocketService {
                     messageHeaders.get("ip_address"),
                     messageHeaders.get("ip_localInetAddress"),
                     message.getFileName());
-            return new GenericMessage<>("OK");
+            return new GenericMessage<>("{\"code\" :200, \"message\" : \"OK\"}");
         } catch (JsonProcessingException e) {
             log.error("Unexpected message content from client: {}", messageStr);
             return null;
