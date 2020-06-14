@@ -1,0 +1,45 @@
+spring:
+  application:
+    name: AIZHK-LKNZ
+  main:
+    allow-bean-definition-overriding: true
+
+  liquibase:
+    enabled: false
+
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: ${DB_URL:jdbc:postgresql://localhost:5455/postgres}
+    username: ${DB_USER:postgres}
+    password: ${DB_PASSWORD:postgres}
+
+    hikari:
+      #описание свойств: https://github.com/brettwooldridge/HikariCP#configuration-knobs-baby
+      poolName: HikariPool-app
+      minimum-idle: 6
+      maximum-pool-size: 100
+      connection-timeout: 5000
+      idle-timeout: 60000
+
+  jpa:
+    generate-ddl: false
+    show-sql: false
+    database: postgresql
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        default_schema: public
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc:
+          lob:
+            non_contextual_creation: true
+
+  transaction:
+    default-timeout: 3600
+
+logging:
+  level:
+    ru.itrev: info
