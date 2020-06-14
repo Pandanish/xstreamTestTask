@@ -28,7 +28,7 @@ public class ClientConfig {
 
 
     @Bean
-    public IntegrationFlow heartbeatClientFlow(
+    public IntegrationFlow clientFlow(
             TcpNetClientConnectionFactory clientConnectionFactory,
             ClientService clientService) {
         return IntegrationFlows.from(clientService::send, e -> e.poller(Pollers.fixedDelay(Duration.ofSeconds(5))))
